@@ -1,0 +1,14 @@
+{#<form action="{% url 'check' %}" method="post">#}
+{#    {%  csrf_token %}#}
+{#    {{ form }}#}
+{#    <button type="submit">제출</button>#}
+{#</form>#}
+
+<form action="{% url 'check' %}" method="post">
+    {%  csrf_token %}
+    {{ form.as_table }}
+    {% comment %}
+    form.as_table : form을 자동 생성시 table 형식으로 만들겠다는 의미
+    {% endcomment %}
+    <button type="submit">제출</button>
+</form>

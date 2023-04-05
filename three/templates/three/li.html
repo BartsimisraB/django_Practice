@@ -1,0 +1,77 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<h2> L I 쌍화차야!</h2>#}
+{#<hr>#}
+{#<ul>#}
+{#{% for i in res %}#}
+{#    <li>음식 이름 : {{ i.name }}</li>#}
+{#    <li>주소 : {{ i.adr }}</li>#}
+{#{% endfor %}#}
+{#</ul>#}
+{#</body>#}
+{#</html>#}
+
+{% extends 'three/basic.html' %}
+{% load static %}
+{% block con %}
+    <div class="container">
+        {% for i in res %}
+            <div class="card divD">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ i.adr }}</h6>
+                    <p class="card-text">음식설명</p>
+                    <a class="card-link" href="#">자세히 보기</a>
+                    <a class="card-link" href="#">수정하기</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+<ul class="pagination justify-content-center">
+{#    이전 페이지    #}
+{% if res.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ res.previous_page_number}}">
+            이전
+        </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+            이전
+        </a>
+    </li>
+{% endif %}
+{# 페이지 리스트 #}
+{% for page_number in res.paginator.page_range %}
+    {% if page_number == res.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+    {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+    {% endif %}
+{% endfor %}
+{#  다음 페이지  #}
+{% if res.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ res.next_page_number}}">
+            다음
+        </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+            다음
+        </a>
+    </li>
+{% endif %}
+</ul>
+{% endblock %}

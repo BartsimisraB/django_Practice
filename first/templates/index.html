@@ -1,0 +1,17 @@
+{% extends 'first/basic.html' %}
+{% load static %}
+{% block con %}
+    <h2> 이곳은 Python 에서 View 역할을 하는 Templates 입니다.</h2>
+    <h3> 이곳은 templates/index.html 입니다.</h3>
+    <h3> 현재 날짜 {{ now_time }}</h3>
+    <a href="{% url 'number' %}">number.html로 이동 : { % url 'number' % }로 경로 지정</a>
+    <br><br>
+    <a href="/number">number.html로 이동 : /number로 경로지정</a>
+    <br><br>
+    <a href="{% url 'result' %}">result.html로 이동 : { % url 'result' % }로 경로 지정</a>
+    <br><br>
+    <a href="/result">result.html로 이동 : /result로 경로지정</a>
+    <hr>
+    <h3>사진 파일 띄우기 - { % load static % }</h3>
+    <img src="{% static 'first/아스키코드.png' %}">
+{% endblock %}

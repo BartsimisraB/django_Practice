@@ -1,0 +1,19 @@
+{% extends 'first/basic.html' %}
+{% block con %}
+<h3> 이곳은 templates/number.html 입니다.</h3>
+<hr>
+{#<h3>views에서 넘긴 con의 num의 값은 {{ num }}</h3>#}
+{#{% if num|divisibleby:2 %}#}
+{#    <h3>짝수</h3>#}
+{#{% else %}#}
+{#    <h3>홀수</h3>#}
+{#{% endif %}#}
+{#{% comment %} 장고에서 뷰에서는 파이썬 문이 끝날 때 end를 사용한다.{% endcomment %}#}
+{#<br>#}
+{#<a href="{% url 'index' %}">index.html로 돌아가기</a>#}
+<p>정수 입력</p>
+<form action="{% url 'result' %}" method="get">
+    <input type="number" name="num">
+    <button type="submit">결과</button>
+</form>
+{% endblock %}

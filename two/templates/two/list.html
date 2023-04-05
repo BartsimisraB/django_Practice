@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    {% for i in n %}
+        <li>{{ i.title }}</li>
+        <li>{{ i.content }}</li>
+    {% endfor %}
+    {% comment %} 장고에서 뷰에서는 파이썬 코드에서 문이 끝날 때 end를 사용한다.{% endcomment %}
+</ul>
+</body>
+</html>
