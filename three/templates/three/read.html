@@ -1,0 +1,35 @@
+{% extends 'three/basic.html' %}
+{% load static %}
+{% block con %}
+    <div class="container">
+        {% csrf_token %}
+        <div class="card divD">
+            <div class="card-body">
+                <h5 class="card-title">{{ a.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ a.adr }}</h6>
+                <p>
+                    <a href="{% url 'res-delete' %}?id={{ a.id }}">
+                        <button class="btn btn-danger">삭제</button>
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url 'review_create' food_id=a.id %}">
+                        <button class="btn btn-danger">리뷰 쓰기</button>
+                    </a>
+                </p>
+                <ul>
+                    {% for comment in re %}
+                        <li>
+                            {{ comment.score }} 점       |       {{ comment.comment }}
+                        <a href="{% url 'review_delete' food_id=a.id review_id=comment.id %}">
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
