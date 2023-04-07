@@ -1,79 +1,43 @@
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Title</title>#}
-{#</head>#}
-{#<body>#}
-{#<h2> L I 쌍화차야!</h2>#}
-{#<hr>#}
-{#<ul>#}
-{#{% for i in res %}#}
-{#    <li>음식 이름 : {{ i.name }}</li>#}
-{#    <li>주소 : {{ i.adr }}</li>#}
-{#{% endfor %}#}
-{#</ul>#}
-{#</body>#}
-{#</html>#}
-
 {% extends 'three/basic.html' %}
 {% load static %}
 {% block con %}
-    <div class="container">
-        {% for i in res %} {% comment %} for 문으로 반복해서 데이터를 삽입 {% endcomment %}
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ i.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ i.adr }}</h6>
-                    <p class="card-text">음식설명</p>
-                    {# <a class="card-link" href="{% url 'res-read' %}?id={{ i.id }}">자세히 보기</a> #}
-                    <a class="card-link" href="{% url 'res-read' id=i.id %}">자세히 보기</a>
-                    <a class="card-link" href="/three/update?id={{ i.id }}">수정하기</a>
-                    {# <a class="card-link" href="{% url 'res-update' %}?id={{ i.id }}">수정하기</a> #}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-<ul class="pagination justify-content-center">
-{#    이전 페이지 버튼    #}
-{% if res.has_previous %}
-    <li class="page-item">
-        <a class="page-link" href="?page={{ res.previous_page_number}}">
-            이전
-        </a>
-    </li>
-    {% else %}
-    <li class="page-item disabled">
-        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
-            이전
-        </a>
-    </li>
-{% endif %}
-{# 페이지 리스트 버튼 #}
-{% for page_number in res.paginator.page_range %}
-    {% if page_number == res.number %}
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-        </li>
-    {% else %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-        </li>
-    {% endif %}
+<div class="container">
+    {% for i in res %}
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">{{ i.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ i.adr }}</h6>
+    <p class="card-text"> 리뷰 수:  {{  i.reviews_count }}
+        평점 : {{ i.average_score }}
+    </p>
+    <a href="{% url 'res-read' id=i.id %}" class="card-link">자세히 보기</a>
+    <a href="{% url 'res-update' %}?id={{ i.id }}" class="card-link">수정하기</a>
+  </div></div>
 {% endfor %}
-{#  다음 페이지 버튼  #}
-{% if res.has_next %}
-    <li class="page-item">
-        <a class="page-link" href="?page={{ res.next_page_number}}">
-            다음
-        </a>
-    </li>
-    {% else %}
-    <li class="page-item disabled">
-        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
-            다음
-        </a>
-    </li>
-{% endif %}
-</ul>
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div class="pagination">
+                <span class="step-links text-center" style="width:100%;">
+                    {% if res.has_previous %}
+                        <a href="?page=1">&laquo;</a>
+                        <a href="?page={{ res.previous_page_number }}">
+                            {{ res.previous_page_number }}
+                        </a>
+                    {% endif %}
+
+                    <span class="current">
+                        {{ res.number }}
+                    </span>
+
+                    {% if res.has_next %}
+                        <a href="?page={{ res.next_page_number}}">
+                            {{ res.next_page_number }}
+                        </a>
+                    <a href="?page={{res.paginator.num_pages }}">&raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
